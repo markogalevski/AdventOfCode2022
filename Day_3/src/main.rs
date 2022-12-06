@@ -4,7 +4,6 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
     let file = File::open(args[1].clone()).unwrap();
     let mut file: Vec<String> = BufReader::new(file).lines().map(|x| x.unwrap()).collect();
-    println!("{:?}", file.len());
     if file.len() % 3 != 0 {
         file.append(
             &mut [""]
@@ -14,13 +13,11 @@ fn main() {
                 .collect::<Vec<String>>(),
         );
     }
-    println!("{:?}", file.len());
     let mut iterator = file.iter();
     let mut peekable = iterator.by_ref().peekable();
     let mut badge_values: Vec<u32> = vec![];
     while peekable.by_ref().peek().is_some() {
         let rucksacks: Vec<&str> = peekable.by_ref().take(3).map(|x| x.as_str()).collect();
-        println!("{:?}", rucksacks);
         let mut badge: Vec<char> = rucksacks[0]
             .chars()
             .filter(|c| {
